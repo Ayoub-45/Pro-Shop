@@ -1,7 +1,7 @@
 import React from "react";
 
 function App() {
-  return <h1>Welcome to Pro Shop</h1>;
+  return <p>Welcome to Pro Shop</p>;
 }
 
 export default App;
