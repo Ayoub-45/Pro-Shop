@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardText } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Rating from "./Rating.component";
 function Products({ product }) {
@@ -9,7 +9,7 @@ function Products({ product }) {
         <Card.Img src={product.image} variant="top" />
       </Link>
       <Card.Body>
-        <Link to={`/products/${product._id}`}>
+        <Link to={`/product/${product._id}`}>
           <Card.Title as="div" className="product-title">
             <strong>{product.name}</strong>
           </Card.Title>
