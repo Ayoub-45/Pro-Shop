@@ -1,0 +1,15 @@
+{
+  "name": "pro-shop",
+  "version": "2.0.0",
+  "description": "E-commerce platform built with MERN stack",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js "
+  },
+  "author": "ayoub nasraoui",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.3"
+  }
+}
