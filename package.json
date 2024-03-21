@@ -21,6 +21,7 @@
     "mongoose": "^8.2.2"
   },
   "devDependencies": {
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "devtool": "inline-cheap-module-source-map"
   }
 }
