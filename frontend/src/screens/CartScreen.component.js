@@ -12,14 +12,18 @@ import {
 import { FaTrash } from "react-icons/fa";
 import Message from "../components/Message.component";
 import { addToCart } from "../slices/cartSlice";
+import { removeFromCart } from "../slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 function CartScreen() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
-  const addToCartHandler = (product, qty) => {
+  const addToCartHandler = async (product, qty) => {
     console.log("changed");
     dispatch(addToCart({ ...product, qty }));
+  };
+  const removeCartHandler = async (id) => {
+    dispatch(removeFromCart(id));
   };
   return (
     <Row>
@@ -53,7 +57,7 @@ function CartScreen() {
                         }}
                       >
                         {[...Array(item.countInStock).keys()].map((x) => {
-                          return (
+                          return x === 1 ? null : (
                             <option key={x + 1} value={x + 1}>
                               {x + 1}
                             </option>
@@ -62,8 +66,13 @@ function CartScreen() {
                       </Form.Control>
                     </Col>
                     <Col md={2}>
-                      <Button variant="light">
-                        <FaTrash></FaTrash>
+                      <Button
+                        variant="light"
+                        onClick={() => {
+                          removeCartHandler(item._id);
+                        }}
+                      >
+                        <FaTrash />
                       </Button>
                     </Col>
                   </Row>

@@ -12,7 +12,7 @@ import Rating from "../components/Rating.component";
 import { useGetProductDetailsQuery } from "../slices/productsSlice";
 import Loader from "../components/Loader.component";
 import { useState } from "react";
-import { UseDispatch, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCart } from "../slices/cartSlice";
 
 function ProductScreen() {
