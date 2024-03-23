@@ -6,8 +6,10 @@ import routes from "./routes/productsRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorHandler.js";
 const port = process.env.PORT || 5000;
-const app = express();
 connectDB();
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.get("/", (request, response) => {
   response.send("API is running ...");
 });

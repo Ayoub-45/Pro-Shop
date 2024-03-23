@@ -1,7 +1,19 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../modals/userModal.js";
 const authUser = asyncHandler(async (request, response) => {
-  response.send("Auth user");
+  const { email, password } = request.body;
+  const user = await User.findOne({ email });
+  if (user && (await user.matchPassword(password))) {
+    response.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
+  } else {
+    response.status(404);
+    throw new Error(`invalid email or password`);
+  }
 });
 
 const registerUser = asyncHandler(async (request, response) => {
