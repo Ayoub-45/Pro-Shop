@@ -18,10 +18,10 @@
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "express": "^4.18.3",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.2"
   },
   "devDependencies": {
-    "dotenv": "^16.4.5",
-    "devtool": "inline-cheap-module-source-map"
+    "dotenv": "^16.4.5"
   }
 }
