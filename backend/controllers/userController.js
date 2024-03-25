@@ -31,7 +31,6 @@ const registerUser = asyncHandler(async (request, response) => {
     password,
     email,
   });
-  console.log("hello");
   if (user) {
     generateToken(response, user._id);
     response.status(201).json({
