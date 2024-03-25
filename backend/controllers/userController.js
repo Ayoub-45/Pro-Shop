@@ -26,12 +26,13 @@ const authUser = asyncHandler(async (request, response) => {
     throw new Error(`invalid email or password`);
   }
 });
-
+const logout = asyncHandler(async (request, response) => {});
 const registerUser = asyncHandler(async (request, response) => {
   response.send("register user");
 });
 const logoutUser = asyncHandler(async (request, response) => {
-  response.send("logout user");
+  response.cookie("jwt", "", { httpOnly: true, expires: new Date(0) });
+  response.status(200).json({ message: "Logged out successfully" });
 });
 const getUserProfile = asyncHandler(async (request, response) => {
   response.send("get user profile");
@@ -51,6 +52,7 @@ const getUserById = asyncHandler(async (request, response) => {
 const updateUser = asyncHandler(async (request, response) => {
   response.send("update user");
 });
+
 export {
   authUser,
   registerUser,
