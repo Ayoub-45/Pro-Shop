@@ -21,7 +21,6 @@ const logout = asyncHandler(async (request, response) => {});
 const registerUser = asyncHandler(async (request, response) => {
   const { email, password, name } = request.body;
   const userExists = await User.findOne({ email });
-  console.log(userExists);
   if (userExists) {
     response.status(400);
     throw new Error("User already exists");
