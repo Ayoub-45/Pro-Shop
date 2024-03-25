@@ -1,20 +1,11 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../modals/userModal.js";
-import jwt from "jsonwebtoken";
+import generateToken from "../utils/generateToken.js";
 const authUser = asyncHandler(async (request, response) => {
   const { email, password } = request.body;
   const user = await User.findOne({ email });
   if (user && (await user.matchPassword(password))) {
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "30d",
-    });
-    //Set JWT as HTTP-Only cookie
-    response.cookie("jwt", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV !== "development",
-      sameSite: "strict",
-      maxAge: 30 * 24 * 60 * 60 * 1000, //30 days
-    });
+    generateToken(response, user._id);
     response.json({
       _id: user._id,
       name: user.name,
@@ -28,7 +19,31 @@ const authUser = asyncHandler(async (request, response) => {
 });
 const logout = asyncHandler(async (request, response) => {});
 const registerUser = asyncHandler(async (request, response) => {
-  response.send("register user");
+  const { email, password, name } = request.body;
+  const userExists = await User.findOne({ email });
+  console.log(userExists);
+  if (userExists) {
+    response.status(400);
+    throw new Error("User already exists");
+  }
+  const user = await User.create({
+    name,
+    password,
+    email,
+  });
+  console.log("hello");
+  if (user) {
+    generateToken(response, user._id);
+    response.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
+  } else {
+    response.status(400);
+    throw new Error("Invalid user data");
+  }
 });
 const logoutUser = asyncHandler(async (request, response) => {
   response.cookie("jwt", "", { httpOnly: true, expires: new Date(0) });
