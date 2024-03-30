@@ -48,7 +48,9 @@ const logoutUser = asyncHandler(async (request, response) => {
   response.status(200).json({ message: "Logged out successfully" });
 });
 const getUserProfile = asyncHandler(async (request, response) => {
-  response.send("get user profile");
+  const user = await user.findById(request.user._id);
+  if (user) {
+  }
 });
 const updateUserProfile = asyncHandler(async (request, response) => {
   response.send("update user");
