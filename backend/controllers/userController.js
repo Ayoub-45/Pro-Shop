@@ -48,8 +48,23 @@ const logoutUser = asyncHandler(async (request, response) => {
   response.status(200).json({ message: "Logged out successfully" });
 });
 const getUserProfile = asyncHandler(async (request, response) => {
-  const user = await user.findById(request.user._id);
+  const user = await User.findById(request.user._id);
   if (user) {
+    user.name = request.body.name || user.name;
+    user.email = request.body.email || user.email;
+    if (request.body.password) {
+      user.password = request.boy.password;
+    }
+    const updatedUser = await user.save();
+    response.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    response.status(404);
+    throw new Error("User not found");
   }
 });
 const updateUserProfile = asyncHandler(async (request, response) => {
@@ -78,4 +93,5 @@ export {
   deleteUser,
   getUserById,
   updateUser,
+  logout,
 };
