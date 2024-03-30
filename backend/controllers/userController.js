@@ -56,6 +56,7 @@ const getUserProfile = asyncHandler(async (request, response) => {
       user.password = request.boy.password;
     }
     const updatedUser = await user.save();
+
     response.status(200).json({
       _id: updatedUser._id,
       name: updatedUser.name,
