@@ -8,6 +8,7 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
+import RegisterScreen from "./screens/Register.component";
 import HomeScreen from "./screens/HomeScreen.component";
 import ProductScreen from "./screens/ProductScreen.component";
 import CartScreen from "./screens/CartScreen.component";
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
       <Route path="/product/:id" element={<ProductScreen />} />
       <Route path="/cart" element={<CartScreen />} />
       <Route path="/login" element={<LoginScreen />} />
+      <Route path="/register" element={<RegisterScreen />} />
     </Route>
   )
 );
