@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { saveShippingAddress } from "../slices/cartSlice";
 import FormContainer from "../components/FormContainer.component";
 import Checkout from "../components/Checkout.component";
+import CheckoutSteps from "../components/Checkout.component";
 function ShippingScreen() {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
@@ -16,17 +17,19 @@ function ShippingScreen() {
   const [country, setCountry] = useState(shippingAddress?.country || "");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  console.log("this code works");
   const submitHandler = (e) => {
     e.preventDefault();
+    console.log("submitting");
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
     navigate("/payment");
   };
   return (
     <FormContainer>
-      <Checkout step1 step2 />
-      <h1>Shipping</h1>
       <Form onSubmit={submitHandler}>
-        <FormGroup controlId="address" className="my-2">
+        <CheckoutSteps step1 />
+        <h1>Shipping</h1>
+        <Form.Group controlId="address" className="my-2">
           <Form.Label>Address</Form.Label>
           <Form.Control
             type="text"
@@ -34,8 +37,8 @@ function ShippingScreen() {
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           ></Form.Control>
-        </FormGroup>
-        <FormGroup controlId="city" className="my-2">
+        </Form.Group>
+        <Form.Group controlId="city" className="my-2">
           <Form.Label>City</Form.Label>
           <Form.Control
             type="text"
@@ -43,8 +46,8 @@ function ShippingScreen() {
             value={city}
             onChange={(e) => setCity(e.target.value)}
           ></Form.Control>
-        </FormGroup>
-        <FormGroup controlId="country" className="my-2">
+        </Form.Group>
+        <Form.Group controlId="country" className="my-2">
           <Form.Label>Country</Form.Label>
           <Form.Control
             type="text"
@@ -52,8 +55,8 @@ function ShippingScreen() {
             value={country}
             onChange={(e) => setCountry(e.target.value)}
           ></Form.Control>
-        </FormGroup>
-        <FormGroup controlId="postal code" className="my-2">
+        </Form.Group>
+        <Form.Group controlId="postal code" className="my-2">
           <Form.Label>Postal Code</Form.Label>
           <Form.Control
             type="text"
@@ -61,7 +64,7 @@ function ShippingScreen() {
             value={postalCode}
             onChange={(e) => setPostalCode(e.target.value)}
           ></Form.Control>
-        </FormGroup>
+        </Form.Group>
         <Button type="submit" variant="dark" className="my-2">
           Continue
         </Button>
